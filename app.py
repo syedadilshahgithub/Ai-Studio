@@ -11,7 +11,7 @@ CORS(app)
  
 # ─── Load Models ───────────────────────────────────────────────
 # 1. Groq client (Agentic AI)
-groq_client = Groq(api_key="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")
+groq_client = Groq(api_key="YOUR_GROQ_API_KEY_HERE")
  
 # 2. Twitter Sentiment (.pkl)
 try:
