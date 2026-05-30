@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+
+<!-- ── NOISE OVERLAY ── -->
+<div class="noise"></div>
+
+<!-- ── SIDEBAR NAV ── -->
+<nav class="sidebar">
+  <div class="logo">AI<br/>STUDIO By Adii</div>
+  <ul class="nav-links">
+    <li><button class="nav-btn active" data-page="chat" onclick="showPage('chat',this)">
+      <span class="nav-icon">⬡</span>
+      <span>Agentic AI</span>
+    </button></li>
+    <li><button class="nav-btn" data-page="sentiment" onclick="showPage('sentiment',this)">
+      <span class="nav-icon">◈</span>
+      <span>Sentiment (ML)</span>
+    </button></li>
+    <li><button class="nav-btn" data-page="flower" onclick="showPage('flower',this)">
+      <span class="nav-icon">✦</span>
+      <span>Flower AI (DL)</span>
+    </button></li>
+  </ul>
+  <div class="sidebar-footer">
+    <span class="status-dot"></span> Models Online
+  </div>
+</nav>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="main">
+
+  <!-- PAGE 1: AGENTIC AI CHAT -->
+  <section class="page active" id="page-chat">
+    <div class="page-header">
+      <div class="tag">GROQ · LLAMA 3.3 70B</div>
+      <h1>Agentic <em>AI</em></h1>
+      <p class="subtitle">Conversational intelligence powered by LLaMA</p>
+    </div>
+
+    <div class="chat-wrap">
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg bot">
+          <div class="msg-avatar">AI</div>
+          <div class="msg-bubble">Salam! Main tumhara AI assistant hoon. Koi bhi sawal poochho — Urdu ya English mein.</div>
+        </div>
+      </div>
+
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" class="chat-input"
+               placeholder="Type a message..." 
+               onkeydown="if(event.key==='Enter') sendChat()"/>
+        <button class="send-btn" onclick="sendChat()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 2: SENTIMENT ANALYSIS -->
+  <section class="page" id="page-sentiment">
+    <div class="page-header">
+      <div class="tag">DISTILBERT · NLP</div>
+      <h1>Twitter <em>Sentiment</em></h1>
+      <p class="subtitle">Analyze tweet emotion — Positive, Negative, or Neutral</p>
+    </div>
+
+    <div class="sentiment-wrap">
+      <div class="input-card">
+        <label class="input-label">Enter Tweet or Text</label>
+        <textarea id="sentimentInput" class="sentiment-textarea"
+                  placeholder="I love this product! It's absolutely amazing..."></textarea>
+        <button class="analyze-btn" onclick="analyzeSentiment()">
+          Analyze Sentiment
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+
+      <div class="result-card" id="sentimentResult" style="display:none">
+        <div class="result-label">Result</div>
+        <div class="sentiment-badge" id="sentimentBadge"></div>
+        <div class="result-text" id="sentimentText"></div>
+      </div>
+
+      <!-- Example tweets -->
+      <div class="examples">
+        <div class="examples-label">Try an example:</div>
+        <div class="example-chips">
+          <button class="chip" onclick="setExample('I absolutely love this! Best day ever 🎉')">Positive example</button>
+          <button class="chip" onclick="setExample('This is terrible, worst experience ever.')">Negative example</button>
+          <button class="chip" onclick="setExample('The product arrived on time, nothing special.')">Neutral example</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 3: FLOWER CLASSIFIER -->
+  <section class="page" id="page-flower">
+    <div class="page-header">
+      <div class="tag">DEEP LEARNING · IMAGE CLASSIFICATION</div>
+      <h1>Flower <em>Classifier</em></h1>
+      <p class="subtitle">Upload a flower image — AI identifies the species</p>
+    </div>
+
+    <div class="flower-wrap">
+      <div class="upload-zone" id="uploadZone"
+           onclick="document.getElementById('flowerInput').click()"
+           ondragover="event.preventDefault()" 
+           ondrop="handleDrop(event)">
+        <div class="upload-icon">✦</div>
+        <div class="upload-text">Drop image here or click to upload</div>
+        <div class="upload-sub">Supports: Rose · Daisy · Sunflower</div>
+        <input type="file" id="flowerInput" accept="image/*" 
+               style="display:none" onchange="previewFlower(event)"/>
+      </div>
+
+      <div class="flower-preview" id="flowerPreview" style="display:none">
+        <img id="previewImg" src="" alt="Preview"/>
+        <button class="analyze-btn" onclick="predictFlower()">
+          Identify Flower
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+
+      <div class="flower-result" id="flowerResult" style="display:none">
+        <div class="result-label">Identified As</div>
+        <div class="flower-name" id="flowerName"></div>
+        <div class="confidence-bars" id="confBars"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
